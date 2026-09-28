@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Системы управления и Проект «Gamepad»</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Custom scrollbar for clean UI */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 h-full flex flex-col selection:bg-indigo-500 selection:text-white">
+
+    <header class="bg-slate-800 border-b border-slate-700 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-600 p-2 rounded-xl text-white shadow-md shadow-indigo-500/30 flex items-center justify-center">
+                    <i data-lucide="gamepad-2" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg sm:text-xl tracking-tight text-white">Робототехника • 7 класс</h1>
+                    <p class="text-xs text-indigo-400 font-medium">Системы управления и Проект «Gamepad»</p>
+                </div>
+            </div>
+            <nav class="flex space-x-1 sm:space-x-2">
+                <button onclick="switchTab('theory')" id="nav-theory" class="tab-btn px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all bg-indigo-600 text-white shadow-sm flex items-center space-x-1.5">
+                    <i data-lucide="book-open" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Теория</span>
+                </button>
+                <button onclick="switchTab('simulator')" id="nav-simulator" class="tab-btn px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all text-slate-300 hover:bg-slate-700 hover:text-white flex items-center space-x-1.5">
+                    <i data-lucide="cpu" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Симулятор Gamepad</span>
+                </button>
+                <button onclick="switchTab('quiz')" id="nav-quiz" class="tab-btn px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all text-slate-300 hover:bg-slate-700 hover:text-white flex items-center space-x-1.5">
+                    <i data-lucide="award" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Проверка знаний</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full">
+
+        <!-- ================= TAB 1: THEORY ================= -->
+        <section id="tab-theory" class="space-y-6">
+            <div class="bg-gradient-to-r from-indigo-900/60 to-purple-900/60 border border-indigo-700/50 rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-indigo-300 pointer-events-none">
+                    <i data-lucide="bot" class="w-64 h-64"></i>
+                </div>
+                <div class="max-w-3xl">
+                    <span class="inline-block bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-semibold px-3 py-1 rounded-full mb-3">Урок робототехники №7</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">Что такое Системы Управления?</h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Каждый робот, квадрокоптер или радиоуправляемая машинка подчиняется законам кибернетики. Чтобы устройство выполняло нужные действия, в нем должна быть настроена четкая **система управления**. Давайте разберем главные понятия и виды систем!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Theory Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-6 shadow-md flex flex-col justify-between hover:border-indigo-500/50 transition-all">
+                    <div>
+                        <div class="w-12 h-12 bg-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center mb-4 font-bold text-lg">01</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Объект и Управление</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            **Объект управления** — это то, чем мы управляем (мотор, колесная база робота). **Управляющее устройство** (например, плата Arduino или наш пульт) формирует команды и передает их объекту.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-700 text-xs text-blue-400 font-medium flex items-center">
+                        <i data-lucide="check-circle-2" class="w-4 h-4 mr-1.5"></i> Базовое понятие
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-6 shadow-md flex flex-col justify-between hover:border-indigo-500/50 transition-all">
+                    <div>
+                        <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center mb-4 font-bold text-lg">02</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Канал связи</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Это «дорога», по которой идут сигналы от джойстика к микроконтроллеру. В виртуальном мире и в реальных роботах это могут быть провода, радиоканал (Bluetooth/Wi-Fi) или инфракрасный лучи.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-700 text-xs text-emerald-400 font-medium flex items-center">
+                        <i data-lucide="radio" class="w-4 h-4 mr-1.5"></i> Передача данных
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-6 shadow-md flex flex-col justify-between hover:border-indigo-500/50 transition-all">
+                    <div>
+                        <div class="w-12 h-12 bg-purple-500/20 text-purple-400 rounded-xl flex items-center justify-center mb-4 font-bold text-lg">03</div>
+                        <h3 class="text-lg font-bold text-white mb-2">Обратная связь</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Связь, при которой управляющее устройство получает данные от датчиков (например, ультразвукового датчика расстояния) и корректирует поведение робота в реальном времени.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-700 text-xs text-purple-400 font-medium flex items-center">
+                        <i data-lucide="activity" class="w-4 h-4 mr-1.5"></i> Датчики и реакция
+                    </div>
+                </div>
+            </div>
+
+            <!-- Types of Control Systems -->
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-6 sm:p-8 shadow-xl">
+                <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+                    <i data-lucide="layers" class="w-6 h-6 mr-2 text-indigo-400"></i>
+                    Основные виды систем управления в нашем проекте
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700">
+                        <div class="text-amber-400 font-bold mb-2 flex items-center">
+                            <i data-lucide="hand" class="w-5 h-5 mr-2"></i> 1. Ручная (Неавтоматическая)
+                        </div>
+                        <p class="text-slate-400 text-sm">
+                            Человек полностью контролирует процесс. Каждое движение стика джойстика напрямую заставляет мотор крутиться в ту или иную сторону. Нет программы автопилота.
+                        </p>
+                    </div>
+                    <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700">
+                        <div class="text-emerald-400 font-bold mb-2 flex items-center">
+                            <i data-lucide="cpu" class="w-5 h-5 mr-2"></i> 2. Автоматическая (Автопилот)
+                        </div>
+                        <p class="text-slate-400 text-sm">
+                            Робот движется полностью самостоятельно по заложенному алгоритму или по датчикам, обходя препятствия на поле без участия человека.
+                        </p>
+                    </div>
+                    <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700">
+                        <div class="text-sky-400 font-bold mb-2 flex items-center">
+                            <i data-lucide="sliders" class="w-5 h-5 mr-2"></i> 3. Автоматизированная
+                        </div>
+                        <p class="text-slate-400 text-sm">
+                            Совместное управление (как круиз-контроль в автомобиле): человек задает базовую скорость или курс, а микроконтроллер автоматически поддерживает её и страхует от аварий.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action Banner -->
+            <div class="bg-indigo-600/20 border border-indigo-500/40 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-1">Готовы протестировать это на практике?</h4>
+                    <p class="text-indigo-200 text-sm">Переходите в симулятор, управляйте виртуальным роботом и наблюдайте за сигналами в реальном времени!</p>
+                </div>
+                <button onclick="switchTab('simulator')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-indigo-600/30 transition-all flex items-center space-x-2 shrink-0">
+                    <span>Открыть симулятор</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: SIMULATOR ================= -->
+        <section id="tab-simulator" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Left Column: Controls & Telemetry -->
+                <div class="lg:col-span-5 space-y-6">
+                    <!-- Mode Selector Card -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center">
+                            <i data-lucide="sliders" class="w-4 h-4 mr-2 text-indigo-400"></i> Режим системы управления
+                        </h3>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setControlMode('manual')" id="mode-manual" class="mode-btn p-3 rounded-xl border border-indigo-500 bg-indigo-600 text-white text-xs font-semibold flex flex-col items-center justify-center space-y-1 transition-all">
+                                <i data-lucide="hand" class="w-5 h-5"></i>
+                                <span>Ручной</span>
+                            </button>
+                            <button onclick="setControlMode('cruise')" id="mode-cruise" class="mode-btn p-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 text-xs font-semibold flex flex-col items-center justify-center space-y-1 transition-all hover:bg-slate-700">
+                                <i data-lucide="Gauge" class="w-5 h-5"></i>
+                                <span>Круиз</span>
+                            </button>
+                            <button onclick="setControlMode('auto')" id="mode-auto" class="mode-btn p-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 text-xs font-semibold flex flex-col items-center justify-center space-y-1 transition-all hover:bg-slate-700">
+                                <i data-lucide="bot" class="w-5 h-5"></i>
+                                <span>Автопилот</span>
+                            </button>
+                        </div>
+                        <p id="mode-desc" class="text-xs text-slate-400 mt-3 bg-slate-900/60 p-3 rounded-lg border border-slate-700/50">
+                            **Ручной режим:** Робот полностью подчиняется командам виртуального джойстика или клавиш клавиатуры (WASD / Стрелки).
+                        </p>
+                    </div>
+
+                    <!-- Virtual Gamepad / Joystick Card -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg flex flex-col items-center">
+                        <div class="w-full flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 flex items-center">
+                                <i data-lucide="gamepad" class="w-4 h-4 mr-2 text-indigo-400"></i> Виртуальный Gamepad
+                            </h3>
+                            <span id="gamepad-status" class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Готов к работе</span>
+                        </div>
+
+                        <!-- Joystick Pad Area -->
+                        <div id="joystick-pad" class="relative w-44 h-44 bg-slate-900 rounded-full border-4 border-slate-700 flex items-center justify-center cursor-pointer shadow-inner touch-none select-none">
+                            <div class="absolute inset-4 rounded-full border border-slate-800 border-dashed pointer-events-none"></div>
+                            <!-- Crosshair guidelines -->
+                            <div class="absolute w-full h-px bg-slate-800 pointer-events-none"></div>
+                            <div class="absolute h-full w-px bg-slate-800 pointer-events-none"></div>
+                            
+                            <!-- Draggable Joystick Knob -->
+                            <div id="joystick-knob" class="absolute w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-full shadow-lg shadow-indigo-600/50 flex items-center justify-center text-white transition-transform duration-75">
+                                <i data-lucide="move" class="w-6 h-6 opacity-80"></i>
+                            </div>
+                        </div>
+
+                        <div class="w-full grid grid-cols-2 gap-2 mt-4">
+                            <button onmousedown="triggerButton('turbo', true)" onmouseup="triggerButton('turbo', false)" ontouchstart="triggerButton('turbo', true)" ontouchend="triggerButton('turbo', false)" class="bg-slate-700 hover:bg-slate-600 active:bg-indigo-600 text-xs font-semibold py-2 px-3 rounded-xl transition-all text-slate-200 border border-slate-600 flex items-center justify-center space-x-1">
+                                <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+                                <span>ТУРБО (Space)</span>
+                            </button>
+                            <button onclick="resetRobot()" class="bg-slate-700 hover:bg-slate-600 text-xs font-semibold py-2 px-3 rounded-xl transition-all text-slate-200 border border-slate-600 flex items-center justify-center space-x-1">
+                                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-sky-400"></i>
+                                <span>Сброс</span>
+                            </button>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-2 text-center">Используйте мышь/палец на стике или клавиши <kbd class="px-1.5 py-0.5 bg-slate-700 rounded text-slate-300">WASD</kbd> / <kbd class="px-1.5 py-0.5 bg-slate-700 rounded text-slate-300">Стрелки</kbd></p>
+                    </div>
+
+                    <!-- Telemetry & Signals Monitor -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center">
+                            <i data-lucide="activity" class="w-4 h-4 mr-2 text-indigo-400"></i> Монитор сигналов (Телеметрия)
+                        </h3>
+                        <div class="space-y-2 font-mono text-xs">
+                            <div class="bg-slate-900 p-2.5 rounded-lg border border-slate-700/80 flex justify-between items-center">
+                                <span class="text-slate-400">Ось X (Поворот):</span>
+                                <span id="telemetry-x" class="text-indigo-400 font-bold">0</span>
+                            </div>
+                            <div class="bg-slate-900 p-2.5 rounded-lg border border-slate-700/80 flex justify-between items-center">
+                                <span class="text-slate-400">Ось Y (Газ/Тормоз):</span>
+                                <span id="telemetry-y" class="text-indigo-400 font-bold">0</span>
+                            </div>
+                            <div class="bg-slate-900 p-2.5 rounded-lg border border-slate-700/80 flex justify-between items-center">
+                                <span class="text-slate-400">Скорость моторов:</span>
+                                <span id="telemetry-speed" class="text-emerald-400 font-bold">0 %</span>
+                            </div>
+                            <div class="bg-slate-900 p-2.5 rounded-lg border border-slate-700/80 flex justify-between items-center">
+                                <span class="text-slate-400">Датчик расстояния:</span>
+                                <span id="telemetry-sensor" class="text-sky-400 font-bold">Чисто (250 см)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Simulation Field & Visualization -->
+                <div class="lg:col-span-7 flex flex-col space-y-6">
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg flex-1 flex flex-col">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 flex items-center">
+                                <i data-lucide="map" class="w-4 h-4 mr-2 text-indigo-400"></i> Поле испытаний робота
+                            </h3>
+                            <div class="flex items-center space-x-2 text-xs">
+                                <span class="flex items-center text-slate-400"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block mr-1"></span>Робот</span>
+                                <span class="flex items-center text-slate-400"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block mr-1"></span>Препятствия</span>
+                            </div>
+                        </div>
+
+                        <!-- Canvas Arena -->
+                        <div class="relative w-full aspect-[4/3] bg-slate-950 rounded-xl border border-slate-700 overflow-hidden shadow-inner flex items-center justify-center">
+                            <canvas id="sim-canvas" class="w-full h-full block cursor-crosshair"></canvas>
+                            
+                            <!-- Overlay Instructions Badge -->
+                            <div id="canvas-badge" class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur border border-slate-700 px-3 py-1.5 rounded-lg text-xs text-slate-300 pointer-events-none flex items-center space-x-1.5">
+                                <i data-lucide="info" class="w-3.5 h-3.5 text-indigo-400"></i>
+                                <span>Управляйте джойстиком или клавишами WASD</span>
+                            </div>
+                        </div>
+
+                        <!-- Simulation Stats Bar -->
+                        <div class="grid grid-cols-3 gap-3 mt-4">
+                            <div class="bg-slate-900 p-3 rounded-xl border border-slate-700/80 text-center">
+                                <div class="text-[10px] uppercase text-slate-400 font-medium">Пройденная дистанция</div>
+                                <div id="stat-dist" class="text-base sm:text-lg font-bold text-white mt-0.5">0.0 м</div>
+                            </div>
+                            <div class="bg-slate-900 p-3 rounded-xl border border-slate-700/80 text-center">
+                                <div class="text-[10px] uppercase text-slate-400 font-medium">Текущий режим</div>
+                                <div id="stat-mode" class="text-base sm:text-lg font-bold text-indigo-400 mt-0.5">Ручной</div>
+                            </div>
+                            <div class="bg-slate-900 p-3 rounded-xl border border-slate-700/80 text-center">
+                                <div class="text-[10px] uppercase text-slate-400 font-medium">Статус системы</div>
+                                <div id="stat-status" class="text-base sm:text-lg font-bold text-emerald-400 mt-0.5">Норма</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: QUIZ ================= -->
+        <section id="tab-quiz" class="hidden space-y-6">
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl max-w-3xl mx-auto">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-700">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Проверка знаний по теме</h3>
+                        <p class="text-xs text-slate-400 mt-0.5">Ответьте на 4 вопроса для закрепления материала</p>
+                    </div>
+                    <span id="quiz-progress" class="bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 text-xs font-semibold px-3 py-1 rounded-full">Вопрос 1 из 4</span>
+                </div>
+
+                <div id="quiz-container" class="space-y-6">
+                    <!-- Dynamic Question will be injected here -->
+                </div>
+
+                <div id="quiz-results" class="hidden text-center py-8 space-y-4">
+                    <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-2xl font-bold border border-emerald-500/40">
+                        <i data-lucide="award" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-white">Тест успешно пройден!</h4>
+                    <p id="quiz-score-text" class="text-slate-300 text-sm">Вы набрали 4 из 4 правильных ответов.</p>
+                    <button onclick="restartQuiz()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-6 py-2.5 rounded-xl transition-all shadow-md shadow-indigo-600/30">
+                        Пройти снова
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Lucide icons initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            initSimulator();
+            initQuiz();
+        });
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            ['theory', 'simulator', 'quiz'].forEach(id => {
+                document.getElementById('tab-' + id).classList.add('hidden');
+                document.getElementById('nav-' + id).classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
+                document.getElementById('nav-' + id).classList.add('text-slate-300', 'hover:bg-slate-700', 'hover:text-white');
+            });
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('nav-' + tabId);
+            activeBtn.classList.remove('text-slate-300', 'hover:bg-slate-700', 'hover:text-white');
+            activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
+
+            if (tabId === 'simulator') {
+                resizeCanvas();
+            }
+        }
+
+        // --- SIMULATOR & GAMEPAD STATE ---
+        let controlMode = 'manual'; // 'manual', 'cruise', 'auto'
+        let joyX = 0; // -100 to 100
+        let joyY = 0; // -100 to 100
+        let isTurbo = false;
+        let isDragging = false;
+
+        // Robot Physics State
+        let robot = {
+            x: 150,
+            y: 150,
+            angle: 0,
+            speed: 0,
+            maxSpeed: 3.5,
+            radius: 16,
+            totalDist: 0
+        };
+
+        // Obstacles on field
+        const obstacles = [
+            { x: 300, y: 120, radius: 25 },
+            { x: 500, y: 300, radius: 30 },
+            { x: 200, y: 350, radius: 20 }
+        ];
+
+        function setControlMode(mode) {
+            controlMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('border-indigo-500', 'bg-indigo-600', 'text-white');
+                btn.classList.add('border-slate-700', 'bg-slate-900', 'text-slate-300');
+            });
+            const activeBtn = document.getElementById('mode-' + mode);
+            activeBtn.classList.remove('border-slate-700', 'bg-slate-900', 'text-slate-300');
+            activeBtn.classList.add('border-indigo-500', 'bg-indigo-600', 'text-white');
+
+            const descEl = document.getElementById('mode-desc');
+            const statModeEl = document.getElementById('stat-mode');
+
+            if (mode === 'manual') {
+                descEl.innerHTML = '**Ручной режим:** Робот полностью подчиняется командам виртуального джойстика или клавиш клавиатуры (WASD / Стрелки).';
+                statModeEl.innerText = 'Ручной';
+            } else if (mode === 'cruise') {
+                descEl.innerHTML = '**Автоматизированный режим (Круиз):** Робот поддерживает постоянную крейсерскую скорость, а человек корректирует направление поворота.';
+                statModeEl.innerText = 'Круиз-контроль';
+            } else if (mode === 'auto') {
+                descEl.innerHTML = '**Автоматический режим (Автопилот):** Робот сам двигается по алгоритму и объезжает препятствия с помощью датчиков расстояния.';
+                statModeEl.innerText = 'Автопилот';
+            }
+        }
+
+        function triggerButton(btnName, state) {
+            if (btnName === 'turbo') {
+                isTurbo = state;
+            }
+        }
+
+        function resetRobot() {
+            robot.x = 150;
+            robot.y = 150;
+            robot.angle = 0;
+            robot.speed = 0;
+            robot.totalDist = 0;
+        }
+
+        // Joystick Mouse/Touch handling
+        const pad = document.getElementById('joystick-pad');
+        const knob = document.getElementById('joystick-knob');
+        const maxRadius = 55;
+
+        function updateJoystickPos(clientX, clientY) {
+            const rect = pad.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            let dx = clientX - centerX;
+            let dy = clientY - centerY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist > maxRadius) {
+                dx = (dx / dist) * maxRadius;
+                dy = (dy / dist) * maxRadius;
+            }
+
+            knob.style.transform = `translate(${dx}px, ${dy}px)`;
+
+            // Normalized -100 to 100
+            joyX = Math.round((dx / maxRadius) * 100);
+            joyY = Math.round((-dy / maxRadius) * 100); // Inverted Y for cartesian
+        }
+
+        function resetJoystickPos() {
+            knob.style.transform = `translate(0px, 0px)`;
+            joyX = 0;
+            joyY = 0;
+            isDragging = false;
+        }
+
+        pad.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            updateJoystickPos(e.clientX, e.clientY);
+        });
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) updateJoystickPos(e.clientX, e.clientY);
+        });
+        window.addEventListener('mouseup', () => {
+            if (isDragging) resetJoystickPos();
+        });
+
+        pad.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            updateJoystickPos(e.touches[0].clientX, e.touches[0].clientY);
+            e.preventDefault();
+        });
+        window.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                updateJoystickPos(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: false });
+        window.addEventListener('touchend', () => {
+            if (isDragging) resetJoystickPos();
+        });
+
+        // Keyboard Controls
+        const keysPressed = {};
+        window.addEventListener('keydown', (e) => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ', 'KeyW', 'KeyS', 'KeyA', 'KeyD'].includes(e.code)) {
+                keysPressed[e.code] = true;
+                e.preventDefault();
+            }
+        });
+        window.addEventListener('keyup', (e) => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ', 'KeyW', 'KeyS', 'KeyA', 'KeyD'].includes(e.code)) {
+                keysPressed[e.code] = false;
+            }
+        });
+
+        function handleKeyboardInput() {
+            if (controlMode === 'manual' || controlMode === 'cruise') {
+                let targetX = 0;
+                let targetY = 0;
+                if (keysPressed['KeyW'] || keysPressed['ArrowUp']) targetY += 100;
+                if (keysPressed['KeyS'] || keysPressed['ArrowDown']) targetY -= 100;
+                if (keysPressed['KeyA'] || keysPressed['ArrowLeft']) targetX -= 100;
+                if (keysPressed['KeyD'] || keysPressed['ArrowRight']) targetX += 100;
+
+                if (!isDragging) {
+                    joyX = targetX;
+                    joyY = controlMode === 'cruise' && targetY === 0 ? 60 : targetY; // Cruise maintains speed
+                    const currentDx = (joyX / 100) * maxRadius;
+                    const currentDy = (-joyY / 100) * maxRadius;
+                    knob.style.transform = `translate(${currentDx}px, ${currentDy}px)`;
+                }
+                isTurbo = !!keysPressed['Space'];
+            }
+        }
+
+        // Canvas Simulation Loop
+        const canvas = document.getElementById('sim-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        function initSimulator() {
+            resizeCanvas();
+            requestAnimationFrame(simulationLoop);
+        }
+
+        let autoSteerAngle = 0;
+
+        function simulationLoop() {
+            handleKeyboardInput();
+
+            // Physics calculation based on control mode
+            let targetSpeed = 0;
+            let steerRate = 0.04;
+
+            if (controlMode === 'manual') {
+                targetSpeed = (joyY / 100) * robot.maxSpeed * (isTurbo ? 1.6 : 1.0);
+                steerRate = 0.05 * (joyX / 100);
+            } else if (controlMode === 'cruise') {
+                // Cruise control keeps moderate speed automatically
+                targetSpeed = 2.2 * (isTurbo ? 1.4 : 1.0);
+                steerRate = 0.05 * (joyX / 100);
+            } else if (controlMode === 'auto') {
+                // Autopilot logic: moves forward and turns away from obstacles
+                targetSpeed = 2.0;
+                let minDist = 120;
+                let obstacleAhead = false;
+                
+                for (let obs of obstacles) {
+                    let d = Math.sqrt((robot.x - obs.x) ** 2 + (robot.y - obs.y) ** 2);
+                    if (d < minDist) {
+                        obstacleAhead = true;
+                        break;
+                    }
+                }
+
+                if (obstacleAhead) {
+                    autoSteerAngle += 0.06;
+                    steerRate = 0.07;
+                } else {
+                    steerRate = Math.sin(Date.now() * 0.002) * 0.02; // slight smooth wandering
+                }
+            }
+
+            // Apply steering
+            if (controlMode !== 'auto') {
+                robot.angle += steerRate;
+            } else {
+                robot.angle += steerRate;
+            }
+
+            // Smooth acceleration
+            robot.speed += (targetSpeed - robot.speed) * 0.1;
+
+            // Move robot
+            let nextX = robot.x + Math.cos(robot.angle) * robot.speed;
+            let nextY = robot.y + Math.sin(robot.angle) * robot.speed;
+
+            // Boundary collision check
+            if (nextX < 30 || nextX > canvas.width - 30 || nextY < 30 || nextY > canvas.height - 30) {
+                robot.angle += Math.PI; // bounce back
+                robot.speed = -robot.speed * 0.5;
+            } else {
+                robot.x = nextX;
+                robot.y = nextY;
+                if (Math.abs(robot.speed) > 0.1) {
+                    robot.totalDist += Math.abs(robot.speed) * 0.02;
+                }
+            }
+
+            // Update telemetry UI
+            document.getElementById('telemetry-x').innerText = joyX;
+            document.getElementById('telemetry-y').innerText = joyY;
+            document.getElementById('telemetry-speed').innerText = Math.round((Math.abs(robot.speed) / robot.maxSpeed) * 100) + ' %';
+            
+            // Check sensor distance to nearest obstacle
+            let nearestDist = 999;
+            for (let obs of obstacles) {
+                let d = Math.sqrt((robot.x - obs.x) ** 2 + (robot.y - obs.y) ** 2) - obs.radius;
+                if (d < nearestDist) nearestDist = d;
+            }
+            const sensorEl = document.getElementById('telemetry-sensor');
+            if (nearestDist < 50) {
+                sensorEl.innerText = `Внимание! (${Math.round(nearestDist)} см)`;
+                sensorEl.className = 'text-amber-400 font-bold';
+            } else {
+                sensorEl.innerText = `Чисто (${Math.round(nearestDist)} см)`;
+                sensorEl.className = 'text-sky-400 font-bold';
+            }
+
+            document.getElementById('stat-dist').innerText = robot.totalDist.toFixed(1) + ' м';
+            document.getElementById('stat-status').innerText = nearestDist < 40 ? 'Объезд' : 'Норма';
+
+            // DRAWING FIELD
+            ctx.fillStyle = '#090d16';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Grid lines
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 1;
+            const gridSize = 40;
+            for (let x = 0; x < canvas.width; x += gridSize) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+            }
+            for (let y = 0; y < canvas.height; y += gridSize) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+            }
+
+            // Draw Obstacles
+            for (let obs of obstacles) {
+                ctx.beginPath();
+                ctx.arc(obs.x, obs.y, obs.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#f59e0b';
+                ctx.shadowColor = '#f59e0b';
+                ctx.shadowBlur = 10;
+                ctx.fill();
+                ctx.shadowBlur = 0; // reset
+                ctx.strokeStyle = '#fbbf24';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Obstacle icon label
+                ctx.fillStyle = '#78350f';
+                ctx.font = '10px Inter';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('⚡', obs.x, obs.y);
+            }
+
+            // Draw Robot
+            ctx.save();
+            ctx.translate(robot.x, robot.y);
+            ctx.rotate(robot.angle);
+
+            // Robot Body Shadow & Base
+            ctx.shadowColor = '#6366f1';
+            ctx.shadowBlur = 15;
+            ctx.fillStyle = '#6366f1';
+            ctx.beginPath();
+            ctx.roundRect(-18, -14, 36, 28, 8);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // Robot Wheels
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(-12, -18, 8, 4);
+            ctx.fillRect(4, -18, 8, 4);
+            ctx.fillRect(-12, 14, 8, 4);
+            ctx.fillRect(4, 14, 8, 4);
+
+            // Direction Arrow / Sensor Cone
+            ctx.fillStyle = '#38bdf8';
+            ctx.beginPath();
+            ctx.moveTo(18, 0);
+            ctx.lineTo(8, -7);
+            ctx.lineTo(8, 7);
+            ctx.closePath();
+            ctx.fill();
+
+            // Ultrasonic sensor eyes
+            ctx.fillStyle = '#cbd5e1';
+            ctx.fillRect(12, -5, 4, 3);
+            ctx.fillRect(12, 2, 4, 3);
+
+            ctx.restore();
+
+            requestAnimationFrame(simulationLoop);
+        }
+
+        // --- QUIZ DATA & LOGIC ---
+        const quizData = [
+            {
+                question: "Что такое «объект управления» в системе робота?",
+                options: [
+                    "Человек, который держит пульт",
+                    "Устройство или механизм, которым управляют (например, моторы робота)",
+                    "Батарейка питания",
+                    "Программа на компьютере"
+                ],
+                correct: 1
+            },
+            {
+                question: "Чем ручная система управления отличается от автоматической?",
+                options: [
+                    "В ручной системой управляет человек с помощью пульта, а в автоматической робот действует сам по программе",
+                    "Ручная система работает только без электричества",
+                    "Автоматическая система не использует микроконтроллер",
+                    "Между ними нет никакой разницы"
+                ],
+                correct: 0
+            },
+            {
+                question: "Что из перечисленного является примером «автоматизированной» системы?",
+                options: [
+                    "Обычный механический выключатель света",
+                    "Полностью слепой робот без датчиков",
+                    "Круиз-контроль в автомобиле (человек задает скорость, а система её поддерживает)",
+                    "Игрушечная машинка на веревочке"
+                ],
+                correct: 2
+            },
+            {
+                question: "Для чего в проекте «Gamepad» используется аналоговый джойстик?",
+                options: [
+                    "Только для включения питания",
+                    "Для передачи плавных сигналов осей X и Y в микроконтроллер для управления движением",
+                    "Для нагрева платы Arduino",
+                    "Для беспроводной зарядки смартфона"
+                ],
+                correct: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function initQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('quiz-results').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = quizData[currentQuestion];
+            document.getElementById('quiz-progress').innerText = `Вопрос ${currentQuestion + 1} из ${quizData.length}`;
+            
+            let html = `
+                <h4 class="text-base sm:text-lg font-bold text-white mb-4">${q.question}</h4>
+                <div class="space-y-3">
+            `;
+
+            q.options.forEach((opt, idx) => {
+                html += `
+                    <button onclick="selectAnswer(${idx})" class="w-full text-left p-4 rounded-xl border border-slate-700 bg-slate-900/60 hover:bg-slate-700 hover:border-indigo-500 text-slate-200 text-sm font-medium transition-all flex items-center justify-between group">
+                        <span>${opt}</span>
+                        <div class="w-6 h-6 rounded-full border border-slate-600 group-hover:border-indigo-400 flex items-center justify-center text-xs text-slate-400 group-hover:text-indigo-300">
+                            ${String.fromCharCode(65 + idx)}
+                        </div>
+                    </button>
+                `;
+            });
+
+            html += `</div>`;
+            document.getElementById('quiz-container').innerHTML = html;
+        }
+
+        function selectAnswer(idx) {
+            const q = quizData[currentQuestion];
+            if (idx === q.correct) {
+                score++;
+            }
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                renderQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('quiz-results').classList.remove('hidden');
+            document.getElementById('quiz-score-text').innerText = `Вы набрали ${score} из ${quizData.length} правильных ответов! ${score === 4 ? 'Отличный результат, вы эксперт по робототехнике! 🎉' : 'Хорошая работа! Повторите теорию и попробуйте еще раз.'}`;
+        }
+
+        function restartQuiz() {
+            initQuiz();
+        }
+    </script>
+</body>
+</html>
